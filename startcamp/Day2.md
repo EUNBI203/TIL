@@ -7,6 +7,7 @@
 * `getcwd()` : 현재 working directory의 절대위치를 나타낸다.
 
   ```python
+  import os
   os.getcwd()
   #=>'C:\\Users\\student\\Desktop\\startcamp'
   ```
