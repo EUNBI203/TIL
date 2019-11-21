@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body style="background-image: image();">
+  <h1>Todo List</h1>
+  <h2 id="time"></h2>
+  <form action="" id="form">
+      <label for="input">할 일을 입력하세요</label>
+      <input type="text" id="input">
+      <button id="input-button" type="submit">+</button>
+  </form>
+  <ul id="todo-list">
+    <li> +버튼이 눌리면 리스트에 추가되도록 구현하세요.</li>
+  </ul>
+  <script>
+    const form = document.querySelector('#form')
+    const plus = document.querySelector("#input-button")
+    const todo_list = document.querySelector("#todo-list")
+    const input = document.querySelector('#input')
+    
+    form.addEventListener('submit', function(event){
+      event.preventDefault()
+      // const input = event.target.previousElementSibling
+      console.log(event.target) // 이벤트가 발생한 대상
+      console.log(this.previousElementSibling)
+      if (input.value) {
+        const list = document.createElement('li')
+        list.innerText = input.value
+        input.value = ''
+        const del = document.createElement('button')
+        del.innerText = '-'
+        del.addEventListener('click', function(event){
+          list.remove()
+        })
+        list.appendChild(del)
+        todo_list.appendChild(list)
+      }
+      else {
+        alert('내용을 입력하세요!')
+      }
+    })
+    function checkTime(i) {
+        if (i < 10) {
+          i = "0" + i;
+        }
+        return i;
+      }
+      function startTime() {
+        var today = new Date();
+        var h = today.getHours();
+        var m = today.getMinutes();
+        var s = today.getSeconds();
+        // add a zero in front of numbers<10
+        m = checkTime(m);
+        s = checkTime(s);
+        document.getElementById('time').innerHTML = h + ":" + m + ":" + s;
+        t = setTimeout(function() {
+          startTime()
+        }, 500);
+      }
+      startTime();
+  </script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script>
+    axios.get("https://source.unsplash.com/1600x900/?nature,water")
+    .then(response => {
+        document.body.style.backgroundImage = `url(${response.request.responseURL})`
+        document.body.style.backgroundPosition = 'center'
+        document.body.style.backgroundSize = 'auto'
+        document.body.style.backgroundRepeat = 'no-repeat'
+        document.body.style.fontStyle.fontcolor = ''
+      })
+
+  </script>
+</body>
+</html>
